@@ -1,0 +1,34 @@
+@echo off
+SETLOCAL EnableExtensions
+
+:: 1. Define the mod name and the homebrew target path
+set "MOD_NAME=BoomboxSpawnerMod.dll"
+set "TARGET_DIR=C:\Users\%USERNAME%\AppData\Roaming\Thunderstore Mod Manager\DataFolder\REPO\profiles\Default\BepInEx\plugins\homebrew"
+
+echo ---------------------------------------------------------
+echo REPO Mod Installer: Boombox Spawner v1.0.2 (Homebrew)
+echo ---------------------------------------------------------
+
+:: 2. Create the homebrew folder if it doesn't exist
+if not exist "%TARGET_DIR%" (
+    echo Creating homebrew folder...
+    mkdir "%TARGET_DIR%"
+)
+
+:: 3. Check for the DLL in the current folder (where they downloaded it)
+if exist "%~dp0%MOD_NAME%" (
+    echo Found %MOD_NAME% in current folder.
+    echo Installing to homebrew...
+    
+    :: Overwrites the old version automatically
+    copy /Y "%~dp0%MOD_NAME%" "%TARGET_DIR%\%MOD_NAME%"
+    
+    echo.
+    echo SUCCESS! Mod installed to BepInEx\plugins\homebrew
+) else (
+    echo ERROR: Could not find %MOD_NAME% next to this .bat file.
+    echo Please ensure both files are in the same folder (like your Desktop).
+)
+
+echo ---------------------------------------------------------
+pause
